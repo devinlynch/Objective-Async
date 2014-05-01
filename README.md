@@ -24,3 +24,6 @@ Use
         // }
     }];
     
+Motivation
+-----
+When trying to execute a set of server calls in order, I found myself having to write way too much code just to handle starting the next call after a successful completion of the prior call.  This looked to messy, so I decided to make this framework to make things more readable.  It turned out to be a lot more useful than just making my code more readable.
