@@ -17,6 +17,10 @@ Use
     } forName:@"second" withCallback:nil];
     
     [chainer executeSeries:^(NSError* error, NSDictionary *dic) {
-        NSLog(@"%@", dic);
+        NSLog(@"Result: %@", dic);
+        // Result: {
+        //    first = 1;
+        //     second = 2;
+        // }
     }];
     
