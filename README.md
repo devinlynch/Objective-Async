@@ -127,6 +127,20 @@ Add a step to the list that will be executed.
                         of the given block
         callback -      An OPTIONAL callback that will be called after successful completion of this step
 
+
+<a name="executeSeries" />
+### executeSeries:
+```objectivec
+-(void) executeSeries: (objectiveAsyncFinalCallback) finalCallback;
+```
+
+In order of the steps that were added, executes each step in series.  In other words, each step only occurs AFTER the previous step successfully completes.
+
+
+
+    Parameters:
+        finalCallback - This is called once all steps have completed, or when an error was found in one of the steps.                         The dictionary will contain the names of the steps mapped with their returned data.
+
 Motivation
 -----
 When trying to execute a set of server calls in order, I found myself having to write way too much code just to handle starting the next call after a successful completion of the prior call.  This looked to messy, so I decided to make this framework to make things more readable.  It turned out to be a lot more useful than just making my code more readable.  The idea was inspired by Caolan McMahon's JavaScript async framework that I had used in the past.
