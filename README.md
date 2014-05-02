@@ -12,7 +12,6 @@ The general idea behind this framework is to allow you to execute a set of block
 ```objectivec
 ObjectiveAsync *objectiveAsync = [[ObjectiveAsync alloc] init];
 ```
-
 2. Add a step to the sequence of steps that will be executed.  Each step needs a block that will actually get executed and a name that is unique to the step.  The block given MUST call the callback at some point with either an error or non-nil data.  You can optionally also give a callback which will be called once this specific step completes.
 ```objectivec
 [objectiveAsync addStepWithBlock:^(objectiveAsyncStepCallback callback) {
