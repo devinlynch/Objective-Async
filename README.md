@@ -7,7 +7,12 @@ A framework for readably performing tasks in parallel or in sequence.
 ## Use
 The general idea behind this framework is to allow you to execute a set of blocks that go and retrieve data somehow.  You then specify a final callback which will be called once all the blocks are complete with all the data returned.
 
-### Steps
+#### Steps
+1. Create a new instance of ObjectiveAsync
+
+```objectivec
+ObjectiveAsync *objectiveAsync = [[ObjectiveAsync alloc] init];
+```
 
 ```objectivec
     ObjectiveAsync *objectiveAsync = [[ObjectiveAsync alloc] init];
