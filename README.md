@@ -20,12 +20,14 @@ The general idea behind this framework is to allow you to execute a set of block
     ```
 
 3. Call either executeSeries: or executeAsync:.  Execute series will perform each step in sequence of when they were added.  Or, in other words, it executes each step only after the previous added step has completed.  Execute async will execute steps simutaniously and there is no guaranteed order of execution.  This method is usually faster if order is not important.  You also must give a callback that will be called once all steps have completed or if an error is given to any of the callbacks of the steps.  The data NSDictionary of the final callback will have the names of each step mapped with the data that they gave to their callbacks.
+
 executeSeries:
 ```objectivec
 [objectiveAsync executeSeries:^(NSError* error, NSDictionary *dic) {
     NSLog(@"Result: %@", dic);
 }];
 ```
+
 executeAsync:
 ```objectivec
 [objectiveAsync executeAsync:^(NSError* error, NSDictionary *dic) {
@@ -65,6 +67,36 @@ executeAsync:
 ```
 
 The result of this execution would be "(1, 2)".  We are using executeSeries so our blocks are performed in order of when they are defined.  We can see that the first step we defined, our block sleeps for 1 second yet there is no sleep in the second block.  However, the data of the first block was still added to our array before the second block.
+
+#####Execute asynchronously
+
+```objectivec
+    ObjectiveAsync *objectiveAsync = [[ObjectiveAsync alloc] init];
+    
+    NSMutableArray *dataInOrder = [[NSMutableArray alloc] init];
+    [objectiveAsync addStepWithBlock:^(objectiveAsyncStepCallback callback) {
+        sleep(1);
+        callback(nil, @"1");
+    } forName:@"first" withCallback:^(NSError *error, id data, NSString *queryName){
+        [dataInOrder addObject:data];
+    }];
+    
+    [objectiveAsync addStepWithBlock:^(objectiveAsyncStepCallback callback) {
+        callback(nil, @"2");
+    } forName:@"second" withCallback:^(NSError *error, id data, NSString *queryName){
+        [dataInOrder addObject:data];
+    }];
+    
+    
+    [objectiveAsync executeAsync:^(NSError* error, NSDictionary *dic) {
+        NSLog(@"Result: %@", dic);
+    }];
+    
+    sleep(2);
+    
+    NSLog(@"%@", dataInOrder);
+```
+The result of this execution would be "(2, 1)".  Since we are using executeAsync: the 2 steps are being performed at the same time.  We have a sleep for 1 second in the first block, so the second block finished executing first.
 
     
 Motivation
