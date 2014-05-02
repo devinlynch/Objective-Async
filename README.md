@@ -68,6 +68,9 @@ executeAsync:
 
 The result of this execution would be "(1, 2)".  We are using executeSeries so our blocks are performed in order of when they are defined.  We can see that the first step we defined, our block sleeps for 1 second yet there is no sleep in the second block.  However, the data of the first block was still added to our array before the second block.
 
+
+
+
 #####Execute asynchronously
 
 ```objectivec
@@ -98,10 +101,20 @@ The result of this execution would be "(1, 2)".  We are using executeSeries so o
 ```
 The result of this execution would be "(2, 1)".  Since we are using executeAsync: the 2 steps are being performed at the same time.  We have a sleep for 1 second in the first block, so the second block finished executing first.
 
+
+## Docs
+
+* [`addStepWithBlock:forName:withCallback:`](#addStepWithBlock)
+* [`executeSeries:`](#executeSeries)
+* [`executeAsync:`](#executeAsync)
+
+
+<a name="addStepWithBlock" />
+## addStepWithBlock:forName:withCallback:
     
 Motivation
 -----
-When trying to execute a set of server calls in order, I found myself having to write way too much code just to handle starting the next call after a successful completion of the prior call.  This looked to messy, so I decided to make this framework to make things more readable.  It turned out to be a lot more useful than just making my code more readable.
+When trying to execute a set of server calls in order, I found myself having to write way too much code just to handle starting the next call after a successful completion of the prior call.  This looked to messy, so I decided to make this framework to make things more readable.  It turned out to be a lot more useful than just making my code more readable.  The idea was inspired by Caolan McMahon's JavaScript async framework that I had used in the past.
 
 
 Copyright 2014 Devin Lynch.  Please give me credit if you use this, that's all I ask.
