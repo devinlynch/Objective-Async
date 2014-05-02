@@ -5,7 +5,7 @@ A framework for readably performing tasks in parallel or in sequence.
 
 
 ## Use
-The general idea behind this framework is to allow you to execute a set of blocks that go and retrieve data somehow.  You then specify a final callback which will be called once all the blocks are complete with all the data returned.
+The general idea behind this framework is to allow you to execute a set of blocks that go and retrieve data somehow.  You then specify a final callback which will be called once all the blocks are complete with all the data returned.  Please note that the blocks are being performed asynchronously on a seperate thread than where the framework is being called.
 
 #### Steps
 1. Create a new instance of ObjectiveAsync
@@ -36,25 +36,39 @@ executeAsync:
 }];
 ```
 
+####Examples
+
+#####Execute in sequence
+
 ```objectivec
     ObjectiveAsync *objectiveAsync = [[ObjectiveAsync alloc] init];
     
+    NSMutableArray *dataInOrder = [[NSMutableArray alloc] init];
     [objectiveAsync addStepWithBlock:^(objectiveAsyncStepCallback callback) {
+        sleep(1);
         callback(nil, @"1");
-    } forName:@"first" withCallback:nil];
+    } forName:@"first" withCallback:^(NSError *error, id data, NSString *queryName){
+        [dataInOrder addObject:data];
+    }];
     
     [objectiveAsync addStepWithBlock:^(objectiveAsyncStepCallback callback) {
         callback(nil, @"2");
-    } forName:@"second" withCallback:nil];
+    } forName:@"second" withCallback:^(NSError *error, id data, NSString *queryName){
+        [dataInOrder addObject:data];
+    }];
+    
     
     [objectiveAsync executeSeries:^(NSError* error, NSDictionary *dic) {
         NSLog(@"Result: %@", dic);
-        // Result: {
-        //    first = 1;
-        //    second = 2;
-        // }
     }];
+    
+    sleep(2);
+    
+    NSLog(@"%@", dataInOrder);
 ```
+
+The result of this execution would be "(1, 2)".  We are using executeSeries so our blocks are performed in order of when they are defined.  We can see that the first step we defined, our block sleeps for 1 second yet there is no sleep in the second block.  However, the data of the first block was still added to our array before the second block.
+
     
 Motivation
 -----
