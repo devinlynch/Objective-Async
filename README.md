@@ -9,7 +9,6 @@ The general idea behind this framework is to allow you to execute a set of block
 
 #### Steps
 1. Create a new instance of ObjectiveAsync
-
 ```objectivec
 ObjectiveAsync *objectiveAsync = [[ObjectiveAsync alloc] init];
 ```
