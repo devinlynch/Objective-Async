@@ -109,11 +109,22 @@ The result of this execution would be "(2, 1)".  Since we are using executeAsync
 * [`executeAsync:`](#executeAsync)
 
 
+
 <a name="addStepWithBlock" />
-#### addStepWithBlock:forName:withCallback:
+### addStepWithBlock:forName:withCallback:
 ```objectivec
 -(void) addStepWithBlock: (objectiveAsyncStepBlock) block forName: (NSString*) name withCallback: (objectiveAsyncPostStepCallback) callback;
 ```
+
+Add a step to the list that will be executed.
+    Parameters:
+        block -         The actual block that will get executed.  It must take a objectiveAsyncStepCallback as a parameter and
+                        this callback MUST be called from within the block.  Calling this callback with an error not nil will
+                        cause the execution of all other steps to be haulted and a call to the final callback.  Calling the callback
+                        with no error will cause the data given to be added to the final data dictionary, mapped with the given name
+        name -          The name that will be used as the key in the final data dictionary, mapped with the data sent to the callback
+                        of the given block
+        callback -      An OPTIONAL callback that will be called after successful completion of this step
 
 Motivation
 -----
