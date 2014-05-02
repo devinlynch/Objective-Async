@@ -8,6 +8,9 @@ Use
 -----
 The general idea behind this framework is to allow you to execute a set of blocks that go and retrieve data somehow.  You then specify a final callback which will be called once all the blocks are complete with all the data returned.
 
+Steps
+
+```objectivec
     ObjectiveAsync *objectiveAsync = [[ObjectiveAsync alloc] init];
     
     [objectiveAsync addStepWithBlock:^(objectiveAsyncStepCallback callback) {
@@ -25,6 +28,7 @@ The general idea behind this framework is to allow you to execute a set of block
         //    second = 2;
         // }
     }];
+```
     
 Motivation
 -----
