@@ -110,8 +110,11 @@ The result of this execution would be "(2, 1)".  Since we are using executeAsync
 
 
 <a name="addStepWithBlock" />
-## addStepWithBlock:forName:withCallback:
-    
+#### addStepWithBlock:forName:withCallback:
+```objectivec
+-(void) addStepWithBlock: (objectiveAsyncStepBlock) block forName: (NSString*) name withCallback: (objectiveAsyncPostStepCallback) callback;
+```
+
 Motivation
 -----
 When trying to execute a set of server calls in order, I found myself having to write way too much code just to handle starting the next call after a successful completion of the prior call.  This looked to messy, so I decided to make this framework to make things more readable.  It turned out to be a lot more useful than just making my code more readable.  The idea was inspired by Caolan McMahon's JavaScript async framework that I had used in the past.
