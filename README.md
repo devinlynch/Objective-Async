@@ -139,7 +139,19 @@ In order of the steps that were added, executes each step in series.  In other w
 
 
     Parameters:
-        finalCallback - This is called once all steps have completed, or when an error was found in one of the steps.                         The dictionary will contain the names of the steps mapped with their returned data.
+        finalCallback - This is called once all steps have completed, or when an error was found in one of the steps.  The dictionary will contain the names of the steps mapped with their returned data.
+
+
+<a name="executeAsync" />
+### executeAsync:
+```objectivec
+-(void) executeAsync: (objectiveAsyncFinalCallback) finalCallback;
+```
+All the steps added are sent triggered to be called simultaneously.  The final callback will be called once every step has completed or when an error occurs.
+
+    Parameters:
+        finalCallback - This is called once all steps have completed, or when an error was found in one of the steps.  The dictionary will contain the names of the steps mapped with their returned data.
+                        
 
 Motivation
 -----
